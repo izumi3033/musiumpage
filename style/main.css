@@ -1,65 +1,76 @@
 body {
-  background-color: #0a0a0a;
+  background-color: #000;
   color: #e0e0e0;
   font-family: 'Segoe UI', sans-serif;
-  line-height: 1.8;
-  margin: 0;
-  padding: 0;
+  overflow-x: hidden;
 }
 
-header {
-  text-align: center;
-  padding: 60px 20px;
-  background: linear-gradient(180deg, #111, #0a0a0a);
-}
-
-h1 {
-  font-size: 2.5em;
-  letter-spacing: 0.1em;
-  color: #ffffff;
-}
-
-.intro {
-  max-width: 800px;
-  margin: 60px auto;
-  text-align: center;
-  font-size: 1.1em;
-  color: #c8c8c8;
-}
-
-.gallery {
+.intro-animation {
+  height: 100vh;
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  gap: 40px;
-  flex-wrap: wrap;
-  margin: 60px auto;
-  max-width: 1000px;
+  animation: fadeIn 3s ease-out;
 }
 
-.item {
-  background-color: #141414;
-  border: 1px solid #333;
-  border-radius: 10px;
-  padding: 20px;
-  width: 300px;
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+@keyframes fadeIn {
+  0% { opacity: 0; transform: scale(1.1); }
+  100% { opacity: 1; transform: scale(1); }
 }
 
-.item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+/* グリッチ効果 */
+.glitch {
+  position: relative;
+  color: #fff;
+  font-size: 3em;
+  letter-spacing: 0.1em;
+  animation: glitch 2s infinite;
 }
 
-img {
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
   width: 100%;
-  border-radius: 8px;
-  margin-bottom: 15px;
+  overflow: hidden;
+  color: #0ff;
 }
 
-footer {
-  text-align: center;
-  padding: 40px;
-  color: #777;
-  border-top: 1px solid #333;
+.glitch::before {
+  left: 2px;
+  text-shadow: -2px 0 red;
+  clip: rect(0, 900px, 0, 0);
+  animation: glitchTop 1s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+  left: -2px;
+  text-shadow: -2px 0 blue;
+  clip: rect(0, 900px, 0, 0);
+  animation: glitchBottom 1.2s infinite linear alternate-reverse;
+}
+
+@keyframes glitchTop {
+  0% { clip: rect(0, 9999px, 0, 0); }
+  10% { clip: rect(10px, 9999px, 50px, 0); }
+  20% { clip: rect(85px, 9999px, 100px, 0); }
+  40% { clip: rect(10px, 9999px, 130px, 0); }
+  100% { clip: rect(0, 9999px, 0, 0); }
+}
+
+@keyframes glitchBottom {
+  0% { clip: rect(0, 9999px, 0, 0); }
+  10% { clip: rect(50px, 9999px, 90px, 0); }
+  30% { clip: rect(120px, 9999px, 140px, 0); }
+  60% { clip: rect(10px, 9999px, 70px, 0); }
+  100% { clip: rect(0, 9999px, 0, 0); }
+}
+
+.subtitle {
+  color: #aaa;
+  font-size: 1.2em;
+  margin-top: 20px;
+  opacity: 0.7;
 }
