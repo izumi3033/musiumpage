@@ -31,8 +31,7 @@ body {
   position: relative;
   color: #fff;
   font-size: 4em;
-  text-transform: none;
-  animation: glitch 1s infinite;
+  animation: glitchMove 1.5s infinite linear alternate;
 }
 
 .glitch::before,
@@ -68,7 +67,17 @@ body {
   margin-top: 1.2em;
   opacity: 0;
   animation: fadeInSubtitle 2s ease forwards;
-  animation-delay: 1s; /* タイトルより遅れて出現 */
+  animation-delay: 1s;
+}
+
+/* 文字のブレ（ノイズ） */
+@keyframes glitchMove {
+  0% { transform: none; }
+  20% { transform: skew(1deg, 0deg) translate(2px, 0); }
+  40% { transform: translate(-2px, -1px) skew(-1deg); }
+  60% { transform: translate(3px, 2px); }
+  80% { transform: skew(0.5deg, -0.5deg) translate(-1px, 1px); }
+  100% { transform: none; }
 }
 
 @keyframes fadeInSubtitle {
@@ -80,7 +89,7 @@ body {
   to { opacity: 0; visibility: hidden; }
 }
 
-/* グリッチの動き */
+/* グリッチの上下ノイズ */
 @keyframes glitchTop {
   0% { clip: rect(0, 9999px, 0, 0); }
   10% { clip: rect(10px, 9999px, 50px, 0); }
@@ -100,7 +109,7 @@ body {
   100% { clip: rect(0, 9999px, 0, 0); }
 }
 
-/* メインコンテンツ表示切り替え */
+/* メインコンテンツ表示 */
 .hidden {
   opacity: 0;
   transition: opacity 1.5s ease;
